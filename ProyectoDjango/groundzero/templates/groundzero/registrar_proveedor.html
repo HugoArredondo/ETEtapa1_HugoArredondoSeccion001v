@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="css/style.css" rel="stylesheet">
+        <title>Registrar Proveedores</title>
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        
+        <!--Font Awesome-->
+        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+        
+        <!-- Optional JavaScript -->
+            <!-- jQuery first, Validate.js, then Bootstrap JS -->
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        
+        {% load static %}
+        <!--Mi estilo-->
+        <link rel="stylesheet" href="{% static 'groundzero/css/style.css' %}">
+
+        <!--Mi script JS-->
+        <link rel="stylesheet" href="{% static 'groundzero/js/script.js' %}">
+
+        <script>
+            $(function() 
+                {
+                    $("#form-reg").validate({
+                        rules: {
+                                iden: "required",
+                                photo: "required",
+                                nom: "required",
+                                phone: "required",
+                                adress: "required",
+                                email: {
+                                    required: true,
+                                    email: true
+                                },
+                                pais: "required",
+                                password: "required",
+                                money: "required"  
+                                
+                        }, //rules
+                        messages: {
+                            iden: {
+                                required: 'Ingresa número de identificación'
+                            },
+                            photo: {
+                                required: 'Carga una foto'
+                            },
+                            nom: {
+                                required: 'Ingresa tu nombre completo'
+                            },
+                            phone:{
+                                required: 'Ingrese un número de contacto'
+                            },
+                            adress: {
+                                required: 'Ingresa una dirección'
+                            },
+                            email: {
+                                required: 'Ingresa tu correo electrónico',
+                                email: 'Formato de correo no válido'
+                            },
+                            pais: {
+                                required: 'Ingresa un País'
+                            },
+                            password: {
+                                required: 'Ingresa una contraseña',
+                                minlength: 'Caracteres insuficientes'
+                            },
+                            money: {
+                                required: 'Ingresa una moneda'
+                            }
+                        }//messages
+                    }); //$('formulario').validate
+                }); //function
+        </script>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-navcolor">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Ground Zero</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="{% url 'index' %}">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'registrar-proveedor' %}">Registro Proveedores</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'ver-proveedores' %}">Ver Proveedores</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="text-center mb-5">
+            <div class="py-5 titulos">
+                <h1>Registrar Proveedor</h1>
+            </div>
+            <div class="container pt-2">
+                <form id="form-reg" name="datos" action="#" method="POST">
+                    {% csrf_token %}
+                    <!--Número de Identificación-->
+                    <div class="form-group">
+                        {{registro.numIdenti.label}}
+                        {{registro.numIdenti}}
+                    </div><br>
+                    <!--Fotografía-->
+                    <div class="form-group">
+                        {{registro.photo.label}}
+                        {{registro.photo}}
+                    </div><br>
+                    <!--Nombre Completo-->
+                    <div class="form-group">
+                        {{registro.nombreProveedor.label}}
+                        {{registro.nombreProveedor}}
+                    </div><br>
+                    <!--Número de contacto-->
+                    <div class="form-group">
+                        {{registro.numContactoProveedor.label}}
+                        {{registro.numContactoProveedor}}
+                    </div><br>
+                    <!--Dirección-->
+                    <div class="form-group">
+                        {{registro.direccionProveedor.label}}
+                        {{registro.direccionProveedor}}
+                    </div><br>
+                    <!--Email-->
+                    <div class="form-group">
+                        {{registro.correoProveedor.label}}
+                        {{registro.correoProveedor}}
+                    </div><br>
+                    <!--Pais-->
+                    <div class="form-group">
+                        {{registro.paisProveedor.label}}
+                        {{registro.paisProveedor}}
+                    </div><br>
+                    <!--Contraseña-->
+                    <div class="form-group">
+                        {{registro.contraseña.label}}
+                        {{registro.contraseña}}
+                    </div><br>
+                    <!--Moneda de pago-->
+                    <div class="form-group">
+                        {{registro.monedaPago.label}}
+                        {{registro.monedaPago}}
+                    </div><br>
+                    <!--Botones-->
+                    <div class="form-group">
+                        <input type="submit" id="enviar" class="btn btn-danger" value="Enviar">
+                        <input type="reset" id="limpiar" class="btn btn-primary" value="Limpiar">
+                    </div>
+                </form>
+            </div>
+        </main>
+
+        <!--Footer-->
+        <footer>
+            <div class="container-fluid w-100 text-light text-center py-4 bg-navcolor">
+                <div class="row">
+                    <div class="col-md-6 py-2">
+                        <h5>Ground Zero</h5>
+                        <h6>©2021 Ground Zero. Todos los derechos reservados.</h6>
+                        <h6>Diseño: Hugo Arredondo</h6>
+                    </div>
+                    <div class="col-md-6 py-2">
+                        <div class="container">
+                            <h5>Síguenos</h5>
+                            <div class="row">
+                                <div class="col-4">
+                                    <a href="https://www.facebook.com/" target="_blank"><i class="fab fa-facebook-square fa-4x mr-3 text-white"></i></a>
+                                </div>
+                                <div class="col-4">
+                                    <a href="https://www.instagram.com/?hl=es-la" target="_blank"><i class="fab fa-instagram fa-4x mr-3 text-white"></i></a>
+                                </div>
+                                <div class="col-4">
+                                    <a href="https://twitter.com/?lang=es" target="_blank"><i class="fab fa-twitter-square fa-4x mr-3 text-white" aria-hidden="true"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>
